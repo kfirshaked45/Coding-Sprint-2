@@ -1,0 +1,14 @@
+.img-editor {
+  display: none;
+}
+.base-layout {
+  grid-template-columns: 17px 1fr 20px;
+  display: grid;
+}
+.base-layout > *:not(.full) {
+  grid-column: 2;
+}
+
+.base-layout > .full {
+  grid-column: 1 / -1;
+}
