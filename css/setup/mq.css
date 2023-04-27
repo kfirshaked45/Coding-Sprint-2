@@ -40,7 +40,7 @@
   }
   .imgs-container {
     /* grid-template-columns: 57px repeat(5, 1fr) 67px; */
-    grid-template-columns: repeat(5, 1fr) 67px;
+    grid-template-columns: repeat(5, 1fr);
   }
   /* .imgs-container img {
     grid-row: 1;
