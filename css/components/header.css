@@ -3,6 +3,7 @@ header {
   height: 140px;
   background-color: #fefefe;
   margin-block-end: 1.0625rem;
+  grid-column: 1/-1;
   justify-content: space-between;
   background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
 }
@@ -22,7 +23,7 @@ header {
 }
 .items-list {
   display: flex;
-  margin-block-start: 3rem;
+  margin-block-start: 3.5rem;
   list-style-type: none;
 }
 .selection-bar {

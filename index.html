@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/eeeff39039.js" crossorigin="anonymous"></script>
   </head>
   <body onload="init()" class="base-layout">
-    <header class="full">
+    <header>
       <nav class="selection-bar">
         <a class="logo" href="#">LOGO</a>
         <ul class="items-list">
@@ -22,43 +22,53 @@
     <div class="img-editor">
       <canvas width="500" height="500" id="my-canvas" class="canvas"></canvas>
       <div class="editor-features">
-        <input type="text" onchange="handleTextChange(this.value)" placeholder="Enter text here!" />
-        <button onclick="moveText('down')">Move Down</button>
-        <button onclick="moveText('up')">Move Up</button>
-        <button onclick="handleSwitch()">Switch</button>
-        <button onclick="addText()">Add</button>
-        <button onclick="deleteText()">Delete Text</button>
-        <button onclick="handleFont('plus')">+</button>
-        <button onclick="handleFont('decrease')">-</button>
-        <button onclick="handleAlign('left')">Align Left</button>
-        <button onclick="handleAlign('center')">Align Center</button>
-        <button onclick="handleAlign('right')">Align Right</button>
-        <select>
-          Change Font
-        </select>
-        <input type="color" onchange="handleStrokeColor(this.value)" />
-        <input type="color" onchange="handleFontColor(this.value)" />
+        <input type="text" onchange="handleTextChange(this.value)" placeholder="Change text!" />
+        <i class="fa-solid fa-arrow-down" onclick="moveText('down')"></i>
+        <i class="fa-solid fa-arrow-up" onclick="moveText('up')"></i>
+        <i class="fa-solid fa-repeat" onclick="handleSwitch()"></i>
+        <i class="fa-solid fa-plus" onclick="addText()"></i>
+        <i class="fa-solid fa-trash-can" onclick="handleDelete()"></i>
+        <div class="text-change-container">
+          <div class="font-enlarge" onclick="handleFont('plus')"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></div>
+          <div class="font-decrease" onclick="handleFont('decrease')">
+            <i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i>
+          </div>
+          <i class="fa-solid fa-align-left" onclick="handleAlign('left')"></i>
+          <i class="fa-solid fa-align-center" onclick="handleAlign('center')"></i>
+          <i class="fa-solid fa-align-right" onclick="handleAlign('right')"></i>
+
+          <select>
+            <option>Change Font</option>
+          </select>
+          <input type="color" onchange="handleStrokeColor(this.value)" />
+
+          <input type="color" onchange="handleFontColor(this.value)" />
+        </div>
         <div>STICKERS</div>
         <button>Share</button>
         <button>Download</button>
       </div>
     </div>
     <div class="gallery-container">
-      <div class="search-bar">
-        <input type="text" placeholder="Search" /><button>
-          <img class="svg" src="imgs/magnifying-glass-solid.svg" alt="My Svg" />
-        </button>
-      </div>
-      <div class="frequent-container">
-        <div class="most-frequent">
-          <ul class="list-frequent">
-            <li class="list-frequent-item">Test1</li>
-            <li>Test2</li>
-          </ul>
+      <div class="align-desktop">
+        <div class="search-bar">
+          <input type="text" placeholder="Search" />
+          <!-- <button>
+           <img class="svg" src="imgs/magnifying-glass-solid.svg" alt="My Svg" /> 
+          </button> -->
         </div>
-        <button class="more-button">More</button>
-        <button onclick="handleFlexiable()">I'm flexiable</button>
+        <div class="frequent-container">
+          <div class="most-frequent">
+            <ul class="list-frequent">
+              <li class="list-frequent-item">Test1</li>
+              <li>Test2</li>
+            </ul>
+          </div>
+          <button class="more-button">More</button>
+        </div>
       </div>
+      <button class="flexiable" onclick="handleFlexiable()">I'm flexiable</button>
+
       <div class="imgs-container"></div>
 
       <!-- <div class="img-card"></div> -->

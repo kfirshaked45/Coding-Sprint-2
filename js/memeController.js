@@ -11,11 +11,6 @@ function renderGallery() {
 
   gElGallery.innerHTML = strHTML;
 }
-function onImgSelect(id) {
-  setImg(id);
-
-  renderMeme();
-}
 
 function renderMeme() {
   const selectedMeme = getMeme();
@@ -32,20 +27,6 @@ function renderMeme() {
 
     // gCtx.save();
   };
-}
-
-function drawText() {
-  const lines = getLines();
-  console.log(lines);
-  lines.forEach((line) => {
-    gCtx.font = `${line.size}px Arial`;
-    gCtx.textAlign = line.align;
-    gCtx.textBaseline = 'middle';
-    gCtx.strokeStyle = 'white';
-    gCtx.fillStyle = line.fontColor;
-    gCtx.fillText(line.txt, line.posX, line.posY);
-    gCtx.strokeText(line.txt, line.posX, line.posY);
-  });
 }
 
 // function clearCanvas() {

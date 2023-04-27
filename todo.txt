@@ -1,0 +1,5 @@
+Click and drag 
+border on text - fix bugs
+fix bugs
+desktop design - NOW
+input that instantly adds text instead of clicking add each time for first one
