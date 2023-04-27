@@ -1,11 +1,44 @@
 header {
   width: 100%;
+  height: 140px;
   background-color: #fefefe;
-  /* display: grid;
-  grid-column: 0 / -1; */
+  margin-block-end: 1.0625rem;
+  justify-content: space-between;
   background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
 }
-header nav a {
+.list-item a {
   text-decoration: none;
   color: white;
 }
+.logo {
+  display: flex;
+  margin-block-start: 3rem;
+  margin-inline-start: 3.6875rem;
+  font-size: 2rem;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  justify-content: space-between;
+}
+.items-list {
+  display: flex;
+  margin-block-start: 3rem;
+  list-style-type: none;
+}
+.selection-bar {
+  justify-content: space-between;
+  display: flex;
+}
+.list-item {
+  margin-inline-start: 2.3125rem;
+  margin-inline-end: 2.3125rem;
+}
+/* 
+<nav >
+<a class="logo" href="#">LOGO</a>
+<ul class="items-list">
+  <li class="list-item"><a href="#">Gallery</a></li>
+  <li class="list-item"><a href="#">Memes</a></li>
+  <li class="list-item"><a href="#">About</a></li>
+</ul>
+</nav> */

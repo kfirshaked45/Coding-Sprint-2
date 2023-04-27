@@ -6,37 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meme Generator!</title>
     <link rel="stylesheet" href="css/main.css" />
+    <script src="https://kit.fontawesome.com/eeeff39039.js" crossorigin="anonymous"></script>
   </head>
   <body onload="init()" class="base-layout">
     <header class="full">
-      <nav>
-        <a href="#">LOGO</a>
-        <a href="#">Gallery</a>
-        <a href="#">About</a>
+      <nav class="selection-bar">
+        <a class="logo" href="#">LOGO</a>
+        <ul class="items-list">
+          <li class="list-item"><a href="#">Gallery</a></li>
+          <li class="list-item"><a href="#">Memes</a></li>
+          <li class="list-item"><a href="#">About</a></li>
+        </ul>
       </nav>
     </header>
     <div class="img-editor">
-      <canvas width="500" height="500" id="my-canvas"></canvas>
-      <input type="text" onchange="handleTextChange(this.value)" />
-      <input type="color" onchange="handleColorChange(this.value)" />
-      <button onclick="handleFont('plus')">+</button>
-      <button onclick="handleFont('decrease')">-</button>
-      <button onclick="handleSwitch()">Switch</button>
+      <canvas width="500" height="500" id="my-canvas" class="canvas"></canvas>
+      <div class="editor-features">
+        <input type="text" onchange="handleTextChange(this.value)" placeholder="Enter text here!" />
+        <button onclick="moveText('down')">Move Down</button>
+        <button onclick="moveText('up')">Move Up</button>
+        <button onclick="handleSwitch()">Switch</button>
+        <button onclick="addText()">Add</button>
+        <button onclick="deleteText()">Delete Text</button>
+        <button onclick="handleFont('plus')">+</button>
+        <button onclick="handleFont('decrease')">-</button>
+        <button onclick="handleAlign('left')">Align Left</button>
+        <button onclick="handleAlign('center')">Align Center</button>
+        <button onclick="handleAlign('right')">Align Right</button>
+        <select>
+          Change Font
+        </select>
+        <input type="color" onchange="handleStrokeColor(this.value)" />
+        <input type="color" onchange="handleFontColor(this.value)" />
+        <div>STICKERS</div>
+        <button>Share</button>
+        <button>Download</button>
+      </div>
     </div>
-    <div class="imgs-gallery">
-      <div class="search-bar"><input type="text" placeholder="Search" /><button>זכוכית מגדלת</button></div>
-      <div class="most-frequent">
-        <label>Funny</label><label>Animal</label><label>Men</label><label>Woman</label><label>comic</label><label>smile</label>
+    <div class="gallery-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Search" /><button>
+          <img class="svg" src="imgs/magnifying-glass-solid.svg" alt="My Svg" />
+        </button>
+      </div>
+      <div class="frequent-container">
+        <div class="most-frequent">
+          <ul class="list-frequent">
+            <li class="list-frequent-item">Test1</li>
+            <li>Test2</li>
+          </ul>
+        </div>
+        <button class="more-button">More</button>
+        <button onclick="handleFlexiable()">I'm flexiable</button>
       </div>
       <div class="imgs-container"></div>
-      <button class="more-button">More</button>
-      <div class="img-card"></div>
-    </div>
 
-    <script src="js/galleryService.js"></script>
+      <!-- <div class="img-card"></div> -->
+    </div>
+    <script src="js/support/util.js"></script>
+    <script src="js/storage/memeStorage.js"></script>
+
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>
-    <script src="js/galleryController.js"></script>
+    <script src="js/editorController.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

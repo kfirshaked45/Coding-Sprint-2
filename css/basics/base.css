@@ -4,3 +4,9 @@ html {
 body {
   background-color: #22252c;
 }
+html,
+body {
+  font-family: poppins;
+  margin: 0;
+  height: 100%;
+}
