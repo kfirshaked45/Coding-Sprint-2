@@ -12,11 +12,13 @@
   grid-column: 2;
 }
 .show-canvas {
-  display: block;
+  display: flex;
   margin-block-end: 295px;
   margin-inline-start: 20px;
 }
-
+/* .canvas {
+  object-fit: fill;
+} */
 .hidden {
   display: none;
 }

@@ -1,5 +1,8 @@
-Click and drag 
-border on text - fix bugs
-fix bugs
-desktop design - NOW
-input that instantly adds text instead of clicking add each time for first one
+fix text to get bigger by the value changing the array to an object
+
+design more
+Make stickers show on canvas
+fix search empty bug and styling falling apart
+Fix gpageIdx 
+fix pageidx of stickers
+finish bonus

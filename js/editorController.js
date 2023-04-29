@@ -1,9 +1,9 @@
-function handleTextChange(text) {
-  setLineTxt(text);
-  renderMeme();
-}
 function handleFontColor(color) {
   setLineColor(color);
+  renderMeme();
+}
+function handleStrokeColor(color) {
+  setStrokeColor(color);
   renderMeme();
 }
 function handleFont(action) {
@@ -36,38 +36,28 @@ function onImgSelect(id) {
 
   renderMeme();
 }
-
-function addText() {
-  addLine('Example Text');
+function handleChangeInput(txt) {
+  addLineInput(txt);
   renderMeme();
 }
+
 function handleDelete() {
   deleteLine();
   renderMeme();
 }
+function selectRandomMeme() {
+  var randomImg = getRandomIntInclusive(1, gImgs.length);
 
-// function addTouchListeners() {
-//   gElCanvas.addEventListener('touchmove', onMove);
-//   gElCanvas.addEventListener('touchstart', onDown);
-//   gElCanvas.addEventListener('touchend', onUp);
-// }
-// function addMouseListeners() {
-//   gElCanvas.addEventListener('mousemove', onMove);
-//   gElCanvas.addEventListener('mousedown', onDown);
-//   gElCanvas.addEventListener('mouseup', onUp);
-// }
+  gMeme.selectedImgId = randomImg;
+}
 function drawText() {
   const lines = getLines();
-  console.log(lines);
 
   lines.forEach((line) => {
-    const textWidth = gCtx.measureText(line.txt).width;
-    const textHeight = parseInt(line.size);
-    console.log(textWidth, textHeight);
     gCtx.font = `${line.size}px Arial`;
     gCtx.textAlign = line.align;
     gCtx.textBaseline = 'middle';
-    gCtx.strokeStyle = 'white';
+    gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fontColor;
     gCtx.strokeText(line.txt, line.posX, line.posY);
     gCtx.fillText(line.txt, line.posX, line.posY);
@@ -79,10 +69,22 @@ function makeBorder() {
   if (!currentLine) return;
   const padding = 20;
   const width = gCtx.measureText(currentLine.txt).width;
+  const height = parseInt(currentLine.size);
+  console.log(height);
   gCtx.beginPath();
-  gCtx.rect(currentLine.posX - width / 2 - padding, currentLine.posY - padding, width + padding * 2, currentLine.size + padding * 2);
+  gCtx.rect(
+    currentLine.posX - width / 2 - padding,
+    currentLine.posY - height / 2 - padding,
+    width + padding * 2,
+    currentLine.size + padding * 2
+  );
   gCtx.lineWidth = 2;
-  gCtx.strokeStyle = 'red';
+  gCtx.strokeStyle = 'White';
   gCtx.stroke();
   gCtx.closePath();
+}
+
+function addText() {
+  addLine('Example Text');
+  renderMeme();
 }

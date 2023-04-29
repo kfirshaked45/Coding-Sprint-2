@@ -10,3 +10,19 @@
 .text-change-container {
   display: block;
 }
+.sticker-img {
+  margin-block-start: 12px;
+  margin-inline-start: 1.4rem;
+  width: 4.25rem;
+  height: 4.1875;
+}
+.stickers {
+  list-style: none;
+  display: flex;
+}
+.angles {
+  margin-block-start: 1.875rem;
+  margin-inline-start: 1.1875rem;
+  color: black;
+  font-size: 20px;
+}
