@@ -36,32 +36,19 @@ function addTouchListeners() {
   gElCanvas.addEventListener('touchend', onUp);
 }
 function onDown(ev) {
-  // Get the ev pos from mouse or touch
   const pos = getEvPos(ev);
   if (!isLineClicked(pos)) return;
   gisDrag = true;
-
-  // console.log('pos:', pos)
-
-  // console.log('Down')
-
-  //Save the pos we start from
   gStartPos = pos;
 }
 
 function onMove(ev) {
   if (!gisDrag) return;
-  // console.log('Move');
-
   const pos = getEvPos(ev);
-  // Calc the delta , the diff we moved
   const dx = pos.x - gStartPos.x;
   const dy = pos.y - gStartPos.y;
-
   updateTextPos(dx, dy);
-  // Save the last pos , we remember where we`ve been and move accordingly
   gStartPos = pos;
-  // The canvas is render again after every move
   renderMeme();
 }
 
@@ -98,4 +85,10 @@ function getEvPos(ev) {
     // console.log('pos:', pos)
   }
   return pos;
+}
+
+function downloadImg(elLink) {
+  const imgContent = gElCanvas.toDataURL('image/jpeg'); // image/jpeg the default format
+  elLink.href = imgContent;
+  savegMemes();
 }

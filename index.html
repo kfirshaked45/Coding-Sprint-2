@@ -14,20 +14,19 @@
         <a class="logo" href="#">LOGO</a>
         <ul class="items-list">
           <li class="list-item"><a href="#">Gallery</a></li>
-          <li class="list-item"><a href="#">Memes</a></li>
+          <li class="list-item"><a href="#" onclick="renderSaved()">Memes</a></li>
           <li class="list-item"><a href="#">About</a></li>
         </ul>
       </nav>
     </header>
     <div class="img-editor">
       <div class="canvas-container">
-        <canvas width="476" height="546" id="my-canvas" class="canvas"></canvas>
+        <canvas id="my-canvas" width="476" height="546" class="canvas"></canvas>
+        <!-- width="476" height="546" -->
       </div>
       <div class="editor-features">
         <input type="text" placeholder="Create Text" class="create-input" onchange="handleChangeInput(this.value)" />
-        <!-- <input type="text" onchange="handleTextChange(this.value)" placeholder="Change text!" /> -->
-        <!-- <i class="fa-solid fa-arrow-down" onclick="moveText('down')"></i>
-        <i class="fa-solid fa-arrow-up" onclick="moveText('up')"></i> -->
+
         <div class="top-features">
           <i class="fa-solid fa-repeat" onclick="handleSwitch()"></i>
           <i class="fa-solid fa-plus" onclick="addText()"></i>
@@ -42,20 +41,26 @@
           <i class="fa-solid fa-align-right" onclick="handleAlign('right')"></i>
 
           <br />
-          <select>
-            <option>Change Font</option>
-          </select>
-          <input type="color" onchange="handleStrokeColor(this.value)" />
+          <div class="bottom-editor-section">
+            <select>
+              <option>Change Font</option>
+            </select>
+            <input type="color" onchange="handleStrokeColor(this.value)" />
 
-          <input type="color" onchange="handleFontColor(this.value)" />
+            <input type="color" onchange="handleFontColor(this.value)" />
+          </div>
         </div>
 
         <ul class="stickers"></ul>
-
-        <button>Share</button>
-        <button>Download</button>
+        <div class="download-share-section">
+          <button class="btn" onclick="onUploadImg()">Share</button>
+          <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+          <button class="save-button" onclick="savegMemes()">Save To Gallery</button>
+        </div>
+        <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
       </div>
     </div>
+    <div class="existing-container"></div>
     <div class="gallery-container">
       <div class="align-desktop">
         <div class="search-bar">
@@ -71,7 +76,7 @@
           <button class="more-button" onclick="nextKeyWordPage()">More</button>
         </div>
       </div>
-      <button class="flexiable" onclick="handleFlexiable()">I'm flexiable</button>
+      <!-- <button class="flexiable" onclick="handleFlexiable()">I'm flexiable</button> -->
 
       <div class="imgs-container"></div>
 
@@ -79,7 +84,8 @@
     </div>
     <script src="js/support/util.js"></script>
     <script src="js/storage/memeStorage.js"></script>
-    <script src="js/editorService.js"></script>
+    <script src="js/storage/sharing-on-facebook.js"></script>
+    <script src="js/storage/upload-from-local.js"></script>
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/editorController.js"></script>

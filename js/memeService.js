@@ -40,33 +40,19 @@ const gStickers = [
 let gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
-  lines: [
-    // {
-    //   txt: 'I sometimes eat Falafel',
-    //   size: 20,
-    //   align: 'left',
-    //   strokeColor: 'white',
-    //   fontColor: 'black',
-    //   posX: 250,
-    //   posY: 50,
-    // },
-    // {
-    //   txt: 'Pilpel',
-    //   size: 20,
-    //   align: 'Middle',
-    //   strokeColor: 'white',
-    //   fontColor: 'black',
-    //   posX: 100,
-    //   posY: 50,
-    // },
-  ],
+  lines: [],
+  stickers: [],
 };
 let gFilteredImgs;
 let currentLineIndex = 0;
+let currentStickerIndex = 0;
 const KEYWORD_LIST_PAGE_SIZE = 5;
 const STICKER_LIST_PAGE_SIZE = 4;
 let gKeyWordPageIdx = 0;
 let gStickerPageIdx = 0;
+let gUploadedImg;
+let gMemes = [];
+
 function filterSearchBar(searchText) {
   const filterSearched = gImgs.filter((img) => {
     const key = img.keywords;
@@ -79,6 +65,7 @@ function filterSearchBar(searchText) {
 function getCurrentKeywordPages() {
   const startIdx = gKeyWordPageIdx * KEYWORD_LIST_PAGE_SIZE;
   const keys = [];
+
   for (const [key, value] of Object.entries(gKeywordSearchCountMap)) {
     keys.push(key);
   }
@@ -89,7 +76,7 @@ function getCurrentKeywordPages() {
     return keys.slice(startIdx, startIdx + KEYWORD_LIST_PAGE_SIZE);
   }
 }
-getCurrentStickerPages();
+
 function getCurrentStickerPages() {
   const startIdx = gStickerPageIdx * STICKER_LIST_PAGE_SIZE;
   const urls = [];
@@ -107,12 +94,12 @@ function getCurrentStickerPages() {
 function nextStickerPage() {
   if (gStickerPageIdx === gStickers.length / STICKER_LIST_PAGE_SIZE) return;
   gStickerPageIdx++;
-  renderMeme();
+  renderStickers();
 }
 function prevStickerPage() {
   if (gStickerPageIdx === 0) return;
   gStickerPageIdx--;
-  renderMeme();
+  renderStickers();
 }
 
 function nextKeyWordPage() {
@@ -150,22 +137,17 @@ function switchLine() {
   return gMeme.selectedLineIdx;
 }
 
-function moveLinePos(action) {
-  var currMemeDetails = gMeme.lines[currentLineIndex];
-
-  if (action === 'up') {
-    currMemeDetails.posY -= 10;
-  } else {
-    currMemeDetails.posY += 10;
-  }
-  _saveMeme();
-}
-
 function updateTextPos(dx, dy) {
   const line = getCurrLine();
 
   line.posX += dx;
   line.posY += dy;
+  _saveMeme();
+}
+function updateStickerPos(dx, dy) {
+  const sticker = getCurrSticker();
+  sticker.posX += dx;
+  sticker.posY += dy;
   _saveMeme();
 }
 
@@ -182,6 +164,16 @@ function addLine(txt) {
 
   _saveMeme();
 }
+
+function addSticker(src) {
+  gMeme = loadFromStorage('meme-editor');
+  // if (gMeme && gMeme.length > 0) return;
+
+  gMeme.stickers.push(_createSticker(src));
+
+  _saveMeme();
+}
+
 function addLineInput(txt) {
   gMeme = loadFromStorage('meme-editor');
   setLineTxt(txt);
@@ -195,48 +187,82 @@ function addLineInput(txt) {
 function _saveMeme() {
   saveToStorage('meme-editor', gMeme);
 }
-function isLineClicked(pos) {
-  const checkPointInPath = gCtx.isPointInPath(pos.x, pos.y);
-  return checkPointInPath;
+function savegMemes() {
+  gMemes = loadFromStorage('meme-storage');
+  gMemes.push(gMeme);
+  saveToStorage('meme-storage', gMemes);
 }
 
-// function _createMemes() {
-//   gMeme = loadFromStorage('meme-editor');
-//   if (gMeme && gMeme.length > 0) return;
-//   gMeme = _createMeme(1, 0);
-//   _saveMeme();
-// }
-// function _createMeme(selectedImgId, selectedLineIdx = 0) {
-//   return {
-//     selectedImgId,
-//     selectedLineIdx,
-//     lines: [],
-//     strokeColor: 'white',
-//     fontColor: 'black',
-//   };
-// }
+function setImg(id) {
+  gMeme.selectedImgId = id;
+  _saveMeme();
+}
 
-// function onDeleteBook(event, bookId) {
-//   event.stopPropagation();
-//   const currBookIndex = gBooks.findIndex((book) => book.id === bookId);
-//   gBooks.splice(currBookIndex, 1);
-//   _saveBooks();
-//   renderBooks();
-// }
-// function onAddBook(title, price) {
-//   title = prompt('Title of book?');
-//   price = prompt('Price of book?');
-//   const newBook = _createBook(title, price);
-//   gBooks.push(newBook);
-//   _saveBooks();
-//   renderBooks();
-// }function filterSearchBooks(searchText) {
-//   const filteredBooks = gBooks.filter(
-//     (book) =>
-//       book.id.toLowerCase().includes(searchText) ||
-//       book.title.toLowerCase().includes(searchText) ||
-//       book.price.toLowerCase().includes(searchText)
-//   );
-//   _saveBooks();
-//   return filteredBooks;
-// }
+function _createLine(txt) {
+  return {
+    txt,
+    size: 30,
+    align: 'center',
+    posX: 250,
+    posY: 50,
+  };
+}
+function _createSticker(src) {
+  return {
+    url: src,
+    posX: 200,
+    posY: 50,
+    width: 70,
+    height: 70,
+  };
+}
+function getMeme() {
+  return gMeme;
+}
+function creategMemes() {
+  gMemes = loadFromStorage('meme-storage');
+  if (gMemes && gMemes.length > 0) return;
+  gMemes.push(gMeme);
+  _saveMeme();
+}
+function getStickers() {
+  return gMeme.stickers;
+}
+function getLines() {
+  return gMeme.lines;
+}
+function getStickers() {
+  return gMeme.stickers;
+}
+function getCurrLine() {
+  return gMeme.lines[currentLineIndex];
+}
+function getCurrSticker() {
+  return gMeme.stickers[currentStickerIndex];
+}
+
+function getImg(meme) {
+  return gImgs.find((img) => img.id === meme.selectedImgId);
+}
+function setLineTxt(text) {
+  if (gMeme.lines.length === 0) return;
+  gMeme.lines[currentLineIndex].txt = text;
+  _saveMeme();
+}
+function setAlign(action) {
+  gMeme.lines[currentLineIndex].align = action;
+  _saveMeme();
+}
+function setLineColor(color) {
+  gMeme.lines[currentLineIndex].fontColor = color;
+  _saveMeme();
+}
+function setStrokeColor(color) {
+  gMeme.lines[currentLineIndex].strokeColor = color;
+  _saveMeme();
+}
+function isLineClicked(pos) {
+  const checkPointInPath = gCtx.isPointInPath(pos.x, pos.y);
+  console.log(checkPointInPath);
+  return checkPointInPath;
+}
