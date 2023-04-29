@@ -11,23 +11,24 @@
   <body onload="init()" class="base-layout">
     <header>
       <nav class="selection-bar">
-        <a class="logo" href="#">LOGO</a>
+        <a class="logo" href="#" onclick="backToIndex()">LOGO</a>
         <ul class="items-list">
-          <li class="list-item"><a href="#">Gallery</a></li>
+          <li class="list-item"><a href="#" onclick="backToIndex()">Gallery</a></li>
           <li class="list-item"><a href="#" onclick="renderSaved()">Memes</a></li>
-          <li class="list-item"><a href="#">About</a></li>
+          <li class="list-item"><a href="#" onclick="showAbout()">About</a></li>
         </ul>
       </nav>
     </header>
     <div class="img-editor">
       <div class="canvas-container">
-        <canvas id="my-canvas" width="476" height="546" class="canvas"></canvas>
+        <canvas id="my-canvas" width="600" height="546" class="canvas"></canvas>
         <!-- width="476" height="546" -->
       </div>
       <div class="editor-features">
         <input type="text" placeholder="Create Text" class="create-input" onchange="handleChangeInput(this.value)" />
 
         <div class="top-features">
+          <i class="fas fa-smile" onclick="handleSwitchSticker()"></i>
           <i class="fa-solid fa-repeat" onclick="handleSwitch()"></i>
           <i class="fa-solid fa-plus" onclick="addText()"></i>
           <i class="fa-solid fa-trash-can" onclick="handleDelete()"></i>
@@ -82,6 +83,7 @@
 
       <!-- <div class="img-card"></div> -->
     </div>
+    <div class="about"></div>
     <script src="js/support/util.js"></script>
     <script src="js/storage/memeStorage.js"></script>
     <script src="js/storage/sharing-on-facebook.js"></script>

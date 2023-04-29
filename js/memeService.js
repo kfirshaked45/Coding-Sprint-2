@@ -40,6 +40,7 @@ const gStickers = [
 let gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
+  selectedStickerIdx: 0,
   lines: [],
   stickers: [],
 };
@@ -52,16 +53,7 @@ let gKeyWordPageIdx = 0;
 let gStickerPageIdx = 0;
 let gUploadedImg;
 let gMemes = [];
-
-function filterSearchBar(searchText) {
-  const filterSearched = gImgs.filter((img) => {
-    const key = img.keywords;
-    return key.includes(searchText);
-  });
-
-  gFilteredImgs = filterSearched;
-  renderGallery();
-}
+let gisStickerDrag = false;
 function getCurrentKeywordPages() {
   const startIdx = gKeyWordPageIdx * KEYWORD_LIST_PAGE_SIZE;
   const keys = [];
@@ -133,8 +125,13 @@ function switchLine() {
   const lines = getLines();
   if (gMeme.selectedLineIdx + 1 === lines.length) gMeme.selectedLineIdx = 0;
   else gMeme.selectedLineIdx++;
-
   return gMeme.selectedLineIdx;
+}
+function switchLine() {
+  const stickers = getStickers();
+  if (gMeme.selectedStickerIdx + 1 === stickers.length) gMeme.selectedStickerIdx = 0;
+  else gMeme.selectedStickerIdx++;
+  return gMeme.selectedStickerIdx;
 }
 
 function updateTextPos(dx, dy) {
@@ -158,7 +155,6 @@ function deleteLine() {
 }
 function addLine(txt) {
   gMeme = loadFromStorage('meme-editor');
-  // if (gMeme && gMeme.length > 0) return;
 
   gMeme.lines.push(_createLine(txt));
 
@@ -167,10 +163,7 @@ function addLine(txt) {
 
 function addSticker(src) {
   gMeme = loadFromStorage('meme-editor');
-  // if (gMeme && gMeme.length > 0) return;
-
   gMeme.stickers.push(_createSticker(src));
-
   _saveMeme();
 }
 
@@ -263,6 +256,6 @@ function setStrokeColor(color) {
 }
 function isLineClicked(pos) {
   const checkPointInPath = gCtx.isPointInPath(pos.x, pos.y);
-  console.log(checkPointInPath);
+
   return checkPointInPath;
 }

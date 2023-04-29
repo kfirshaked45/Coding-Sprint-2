@@ -14,14 +14,10 @@ function init() {
 
   renderGallery();
 }
-// Handle the listeners
+
 function addListeners() {
   addMouseListeners();
   addTouchListeners();
-  // Listen for resize ev
-  // window.addEventListener('resize', () => {
-  //   resizeCanvas();
-  // });
 }
 
 function addMouseListeners() {
@@ -37,52 +33,51 @@ function addTouchListeners() {
 }
 function onDown(ev) {
   const pos = getEvPos(ev);
+  if (checkOnSticker(pos)) {
+    checkOnSticker(pos);
+    gStartPos = pos;
+  }
   if (!isLineClicked(pos)) return;
   gisDrag = true;
   gStartPos = pos;
 }
 
 function onMove(ev) {
-  if (!gisDrag) return;
-  const pos = getEvPos(ev);
-  const dx = pos.x - gStartPos.x;
-  const dy = pos.y - gStartPos.y;
-  updateTextPos(dx, dy);
-  gStartPos = pos;
-  renderMeme();
+  if (gisStickerDrag && !gisDrag) {
+    const pos = getEvPos(ev);
+    const dx = pos.x - gStartPos.x;
+    const dy = pos.y - gStartPos.y;
+    updateStickerPos(dx, dy);
+    gStartPos = pos;
+    renderMeme();
+    return;
+  } else if (!gisStickerDrag && gisDrag) {
+    const pos = getEvPos(ev);
+    const dx = pos.x - gStartPos.x;
+    const dy = pos.y - gStartPos.y;
+    updateTextPos(dx, dy);
+    gStartPos = pos;
+    renderMeme();
+  }
 }
 
 function onUp() {
   gisDrag = false;
+  gisStickerDrag = false;
 }
 
-// function resizeCanvas() {
-//   const elContainer = document.querySelector('.canvas-container');
-//   gElCanvas.width = elContainer.offsetWidth;
-//   gElCanvas.height = elContainer.offsetHeight;
-// }
-
 function getEvPos(ev) {
-  // Gets the offset pos , the default pos
   let pos = {
     x: ev.offsetX,
     y: ev.offsetY,
   };
-
-  // Check if its a touch ev
   if (TOUCH_EVS.includes(ev.type)) {
-    //soo we will not trigger the mouse ev
     ev.preventDefault();
-    //Gets the first touch point
     ev = ev.changedTouches[0];
-    //Calc the right pos according to the touch screen
-    // console.log('ev.pageX:', ev.pageX)
-    // console.log('ev.pageY:', ev.pageY)
     pos = {
       x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
       y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
     };
-    // console.log('pos:', pos)
   }
   return pos;
 }

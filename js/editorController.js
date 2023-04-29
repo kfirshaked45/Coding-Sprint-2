@@ -31,11 +31,12 @@ function handleAlign(action) {
   renderMeme();
 }
 function handleSwitch() {
-  // const currMemeDetails = gMeme.lines[currentLineIndex];
-  // const textWidth = gCtx.measureText(currMemeDetails.txt).width;
-  // const textHeight = parseInt(currMemeDetails.size);
   currentLineIndex = switchLine();
   makeBorder();
+  renderMeme();
+}
+function handleSwitchSticker() {
+  currentStickerIndex = switchLine();
   renderMeme();
 }
 function handleFlexiable() {
@@ -104,7 +105,25 @@ function makeBorder() {
   gCtx.stroke();
   gCtx.closePath();
 }
-
+function checkOnSticker(pos) {
+  const meme = getMeme();
+  const width = 70;
+  const height = 70;
+  const currentStickers = meme.stickers;
+  for (let i = 0; i < currentStickers.length; i++) {
+    const sticker = currentStickers[i];
+    if (
+      pos.x >= sticker.posX - width / 2 &&
+      pos.x <= sticker.posX + width / 2 + height &&
+      pos.y >= sticker.posY - width / 2 &&
+      pos.y <= sticker.posY + width / 2 + height
+    ) {
+      gisStickerDrag = true;
+      return true;
+    }
+  }
+  return false;
+}
 // function removeBorder() {
 //   const currentLine = getCurrLine();
 //   if (!currentLine) return;

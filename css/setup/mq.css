@@ -60,58 +60,7 @@
     height: 2.25rem;
     margin-block-start: 2.375rem;
   }
-  .create-input {
-    width: 27.8125rem;
-    height: 3.5625rem;
-    display: block;
-    box-shadow: 1px 3px 0 #bbc4d1, inset 0 3px 0 #ffffff;
-    border-radius: 28px;
-    background-color: #ebeef3;
-    margin-block-end: 1.125rem;
-    margin-inline-start: 2.5rem;
-    margin-block-start: 24px;
-  }
-  .top-features {
-    margin-inline-start: 9.875rem;
 
-    margin-block-end: 1.6875rem;
-  }
-  .top-features i {
-    font-size: 52px;
-  }
-  .text-change-container {
-    /* Style for "Rectangle" */
-    width: 27.8125rem;
-    height: 9.4375rem;
-    border-radius: 15px;
-    background-color: #19a59f;
-    margin-inline-start: 2.5rem;
-    margin-block-end: 1.375rem;
-  }
-  .text-change-container i {
-    width: 3.4375rem;
-    height: 3.1875rem;
-    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    border-radius: 10px;
-    background-color: #ffffff;
-    font-size: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-inline-start: 1.0625rem;
-    margin-block-start: 11px;
-    margin-inline-end: 12px;
-    margin-block-end: 1.1875rem;
-    color: black;
-  }
-  .editor-features {
-    width: 32.8125rem;
-    height: 34.125rem;
-    margin-inline-start: 5.625rem;
-
-    border-radius: 1.875rem;
-    background-color: #3d3d3d;
-  }
   .stickers {
     padding: 0;
     width: 27.8125rem;
@@ -127,7 +76,7 @@
 
 /* MEDIUM */
 
-@media (min-width: 860px) {
+@media (min-width: 920px) {
   .imgs-container {
     /* grid-template-columns: 57px repeat(5, 1fr) 67px; */
     grid-template-columns: repeat(4, 1fr);
@@ -139,7 +88,7 @@
 
 /* LARGE */
 
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1140px) {
   .imgs-container {
     /* grid-template-columns: 57px repeat(5, 1fr) 67px; */
     grid-template-columns: repeat(5, 1fr);

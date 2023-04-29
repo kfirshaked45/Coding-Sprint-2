@@ -18,7 +18,7 @@ function renderKeyWordsList() {
   if (!currentPageItem) return;
   currentPageItem.forEach((item) => {
     const size = gKeywordSearchCountMap[item];
-    listStrHTML += `<li style='font-size: ${12 + size}px' >${item}</li>`;
+    listStrHTML += `<li style='font-size: ${12 + size}px' onclick='filterItems("${item}")' >${item}</li>`;
   });
   elListContainer.innerHTML = listStrHTML;
 }
@@ -29,16 +29,43 @@ function renderSaved() {
   let strHTML = '';
   // <img class='gallery-img' onclick=onImgSelect(${meme.selectedImgId})  src="${meme.url}"/>
   gMemes.forEach((meme) => {
+    let imgUrl = gImgs.find((img) => img.id === meme.selectedImgId);
     console.log(meme);
-    strHTML += `${meme.selectedImgId}`;
+    strHTML += `<img class='saved-img' src="${imgUrl.url}" />`;
   });
   elSavedMemes.innerHTML = strHTML;
 }
+function showAbout() {
+  hideAllDisplays();
+  var elAbout = document.querySelector('.about');
+  elAbout.innerHTML = `<h1>Example Text</h1>`;
+}
+
 function hideAllDisplays() {
   const elEditorDisplay = document.querySelector('.img-editor');
   elEditorDisplay.classList.add('hidden');
   const elGalleryContainer = document.querySelector('.gallery-container');
   elGalleryContainer.classList.add('hidden');
+}
+function filterItems(item) {
+  const filteredItems = gImgs.filter((img) => {
+    const key = img.keywords;
+    return key.includes(item);
+  });
+  gFilteredImgs = filteredItems;
+  renderGallery();
+}
+function filterSearchBar(searchText) {
+  const filterSearched = gImgs.filter((img) => {
+    const key = img.keywords;
+    return key.includes(searchText);
+  });
+
+  gFilteredImgs = filterSearched;
+  renderGallery();
+}
+function backToIndex() {
+  window.location = 'index.html';
 }
 
 // function clearCanvas() {
