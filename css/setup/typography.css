@@ -2,3 +2,7 @@
   font-family: impact;
   src: url('../fonts/impact.ttf');
 }
+@font-face {
+  font-family: poppins;
+  src: url('../fonts/Poppins-Regular.ttf');
+}
