@@ -11,7 +11,6 @@ function init() {
 
   addListeners();
   countKeyWords();
-
   renderGallery();
 }
 
@@ -33,31 +32,35 @@ function addTouchListeners() {
 }
 function onDown(ev) {
   const pos = getEvPos(ev);
-  if (checkOnSticker(pos)) {
-    checkOnSticker(pos);
+  if (isLineClicked(pos)) {
+    gisDrag = true;
     gStartPos = pos;
+    return;
   }
-  if (!isLineClicked(pos)) return;
-  gisDrag = true;
-  gStartPos = pos;
+  if (checkOnSticker(pos)) {
+    gisStickerDrag = true;
+    gStartPos = pos;
+    return;
+  }
 }
 
 function onMove(ev) {
-  if (gisStickerDrag && !gisDrag) {
-    const pos = getEvPos(ev);
-    const dx = pos.x - gStartPos.x;
-    const dy = pos.y - gStartPos.y;
+  const pos = getEvPos(ev);
+  if (!gStartPos) return;
+  const dx = pos.x - gStartPos.x;
+  const dy = pos.y - gStartPos.y;
+  if (gisStickerDrag === true) {
     updateStickerPos(dx, dy);
     gStartPos = pos;
     renderMeme();
     return;
-  } else if (!gisStickerDrag && gisDrag) {
-    const pos = getEvPos(ev);
-    const dx = pos.x - gStartPos.x;
-    const dy = pos.y - gStartPos.y;
+  }
+  if (gisDrag === true) {
     updateTextPos(dx, dy);
     gStartPos = pos;
     renderMeme();
+  } else {
+    return;
   }
 }
 
@@ -86,4 +89,38 @@ function downloadImg(elLink) {
   const imgContent = gElCanvas.toDataURL('image/jpeg'); // image/jpeg the default format
   elLink.href = imgContent;
   savegMemes();
+}
+function backToIndex() {
+  window.location = 'index.html';
+}
+
+function showSavedHideElse() {
+  hideEditor();
+  hideGallery();
+  showSaved();
+}
+function showEditorHideElse() {
+  showEditor();
+  hideGallery();
+  hideSaved();
+}
+function showEditor() {
+  const elEditorDisplay = document.querySelector('.img-editor');
+  elEditorDisplay.classList.remove('hidden');
+}
+function hideGallery() {
+  const elGalleryContainer = document.querySelector('.gallery-container');
+  elGalleryContainer.classList.add('hidden');
+}
+function hideSaved() {
+  const elExistingContainer = document.querySelector('.existing-container');
+  elExistingContainer.classList.add('hidden');
+}
+function hideEditor() {
+  const elEditorDisplay = document.querySelector('.img-editor');
+  elEditorDisplay.classList.add('hidden');
+}
+function showSaved() {
+  const elExistingContainer = document.querySelector('.existing-container');
+  elExistingContainer.classList.remove('hidden');
 }

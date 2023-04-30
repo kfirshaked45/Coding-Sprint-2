@@ -123,12 +123,14 @@ function setFontSize(action) {
 }
 function switchLine() {
   const lines = getLines();
+
   if (gMeme.selectedLineIdx + 1 === lines.length) gMeme.selectedLineIdx = 0;
   else gMeme.selectedLineIdx++;
   return gMeme.selectedLineIdx;
 }
-function switchLine() {
+function switchSticker() {
   const stickers = getStickers();
+
   if (gMeme.selectedStickerIdx + 1 === stickers.length) gMeme.selectedStickerIdx = 0;
   else gMeme.selectedStickerIdx++;
   return gMeme.selectedStickerIdx;
@@ -136,7 +138,6 @@ function switchLine() {
 
 function updateTextPos(dx, dy) {
   const line = getCurrLine();
-
   line.posX += dx;
   line.posY += dy;
   _saveMeme();
@@ -182,6 +183,7 @@ function _saveMeme() {
 }
 function savegMemes() {
   gMemes = loadFromStorage('meme-storage');
+  if (!gMemes) gMemes = [];
   gMemes.push(gMeme);
   saveToStorage('meme-storage', gMemes);
 }
@@ -198,6 +200,7 @@ function _createLine(txt) {
     align: 'center',
     posX: 250,
     posY: 50,
+    font: 'impact',
   };
 }
 function _createSticker(src) {
@@ -215,7 +218,7 @@ function getMeme() {
 function creategMemes() {
   gMemes = loadFromStorage('meme-storage');
   if (gMemes && gMemes.length > 0) return;
-  gMemes.push(gMeme);
+
   _saveMeme();
 }
 function getStickers() {
@@ -239,6 +242,7 @@ function getImg(meme) {
 }
 function setLineTxt(text) {
   if (gMeme.lines.length === 0) return;
+  console.log(gMeme);
   gMeme.lines[currentLineIndex].txt = text;
   _saveMeme();
 }
@@ -252,10 +256,11 @@ function setLineColor(color) {
 }
 function setStrokeColor(color) {
   gMeme.lines[currentLineIndex].strokeColor = color;
+  console.log(gMeme);
   _saveMeme();
 }
 function isLineClicked(pos) {
   const checkPointInPath = gCtx.isPointInPath(pos.x, pos.y);
-
+  console.log(checkPointInPath);
   return checkPointInPath;
 }

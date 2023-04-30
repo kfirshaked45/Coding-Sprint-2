@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://kit.fontawesome.com/eeeff39039.js" crossorigin="anonymous"></script>
   </head>
+
   <body onload="init()" class="base-layout">
     <header>
       <nav class="selection-bar">
@@ -15,50 +16,51 @@
         <ul class="items-list">
           <li class="list-item"><a href="#" onclick="backToIndex()">Gallery</a></li>
           <li class="list-item"><a href="#" onclick="renderSaved()">Memes</a></li>
-          <li class="list-item"><a href="#" onclick="showAbout()">About</a></li>
         </ul>
       </nav>
     </header>
+
     <div class="img-editor">
-      <div class="canvas-container">
-        <canvas id="my-canvas" width="600" height="546" class="canvas"></canvas>
-        <!-- width="476" height="546" -->
-      </div>
-      <div class="editor-features">
-        <input type="text" placeholder="Create Text" class="create-input" onchange="handleChangeInput(this.value)" />
-
-        <div class="top-features">
-          <i class="fas fa-smile" onclick="handleSwitchSticker()"></i>
-          <i class="fa-solid fa-repeat" onclick="handleSwitch()"></i>
-          <i class="fa-solid fa-plus" onclick="addText()"></i>
-          <i class="fa-solid fa-trash-can" onclick="handleDelete()"></i>
+      <div class="img-editor-container">
+        <div class="canvas-container">
+          <canvas id="my-canvas" width="600" height="546" class="canvas"></canvas>
         </div>
-        <div class="text-change-container">
-          <div class="font-enlarge" onclick="handleFont('plus')"><i class="fa-solid fa-font">+</i></div>
-          <div class="font-decrease" onclick="handleFont('decrease')"><i class="fa-solid fa-font">-</i></div>
 
-          <i class="fa-solid fa-align-left" onclick="handleAlign('left')"></i>
-          <i class="fa-solid fa-align-center" onclick="handleAlign('center')"></i>
-          <i class="fa-solid fa-align-right" onclick="handleAlign('right')"></i>
-
-          <br />
-          <div class="bottom-editor-section">
-            <select>
-              <option>Change Font</option>
-            </select>
-            <input type="color" onchange="handleStrokeColor(this.value)" />
-
-            <input type="color" onchange="handleFontColor(this.value)" />
+        <div class="editor-features">
+          <input type="text" placeholder="Create Text" class="create-input" onchange="handleChangeInput(this.value)" />
+          <div class="top-features">
+            <i class="fas fa-smile white" onclick="handleSwitchSticker()"></i>
+            <i class="fa-solid fa-repeat" onclick="handleSwitch()"></i>
+            <i class="fa-solid fa-plus" onclick="addText()"></i>
+            <i class="fa-solid fa-trash-can" onclick="handleDelete()"></i>
           </div>
-        </div>
 
-        <ul class="stickers"></ul>
-        <div class="download-share-section">
-          <button class="btn" onclick="onUploadImg()">Share</button>
-          <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
-          <button class="save-button" onclick="savegMemes()">Save To Gallery</button>
+          <div class="text-change-container">
+            <div class="font-enlarge" onclick="handleFont('plus')"><i class="fa-solid fa-font">+</i></div>
+            <div class="font-decrease" onclick="handleFont('decrease')"><i class="fa-solid fa-font">-</i></div>
+
+            <i class="fa-solid fa-align-left" onclick="handleAlign('left')"></i>
+            <i class="fa-solid fa-align-center" onclick="handleAlign('center')"></i>
+            <i class="fa-solid fa-align-right" onclick="handleAlign('right')"></i>
+
+            <br />
+            <div class="bottom-editor-section">
+              <select>
+                <option>Change Font</option>
+              </select>
+              <input type="color" onchange="handleStrokeColor(this.value)" />
+
+              <input type="color" onchange="handleFontColor(this.value)" />
+            </div>
+          </div>
+          <ul class="stickers"></ul>
+          <div class="download-share-section">
+            <button class="btn" onclick="onUploadImg()">Share</button>
+            <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+            <button class="save-button" onclick="savegMemes()">Save To Gallery</button>
+          </div>
+          <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
         </div>
-        <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
       </div>
     </div>
     <div class="existing-container"></div>
@@ -66,9 +68,6 @@
       <div class="align-desktop">
         <div class="search-bar">
           <input type="text" placeholder="Search" onchange="filterSearchBar(this.value)" />
-          <!-- <button>
-           <img class="svg" src="imgs/magnifying-glass-solid.svg" alt="My Svg" /> 
-          </button> -->
         </div>
         <div class="frequent-container">
           <div class="most-frequent">
@@ -77,19 +76,16 @@
           <button class="more-button" onclick="nextKeyWordPage()">More</button>
         </div>
       </div>
-      <!-- <button class="flexiable" onclick="handleFlexiable()">I'm flexiable</button> -->
-
       <div class="imgs-container"></div>
-
-      <!-- <div class="img-card"></div> -->
     </div>
-    <div class="about"></div>
+
     <script src="js/support/util.js"></script>
     <script src="js/storage/memeStorage.js"></script>
     <script src="js/storage/sharing-on-facebook.js"></script>
     <script src="js/storage/upload-from-local.js"></script>
     <script src="js/memeService.js"></script>
-    <script src="js/memeController.js"></script>
+    <script src="js/galleryController.js"></script>
+    <script src="js/savedMemesController.js"></script>
     <script src="js/editorController.js"></script>
     <script src="js/main.js"></script>
   </body>

@@ -1,6 +1,10 @@
 .fa-solid {
   color: white;
 }
+.fa-smile {
+  color: white;
+}
+
 .font-enlarge {
   display: inline-block;
 }
@@ -94,7 +98,8 @@
   margin-block-start: 24px;
 }
 .top-features {
-  margin-inline-start: 9.875rem;
+  display: flex;
+  justify-content: space-evenly;
 
   margin-block-end: 1.6875rem;
 }

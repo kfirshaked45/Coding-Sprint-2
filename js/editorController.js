@@ -36,7 +36,8 @@ function handleSwitch() {
   renderMeme();
 }
 function handleSwitchSticker() {
-  currentStickerIndex = switchLine();
+  currentStickerIndex = switchSticker();
+  makeBorderSticker();
   renderMeme();
 }
 function handleFlexiable() {
@@ -66,17 +67,11 @@ function selectRandomMeme() {
 
   gMeme.selectedImgId = randomImg;
 }
-function drawText() {
+function drawLine() {
   const lines = getLines();
-  // const stickers = getStickers();
 
-  // stickers.forEach((sticker) => {
-  //   gCtx.strokeText(sticker.url, sticker.posX, sticker.posY);
-  //   gCtx.fillText(sticker.url, sticker.posX, sticker.posY);
-  //   makeBorder();
-  // });
   lines.forEach((line) => {
-    gCtx.font = `${line.size}px Arial`;
+    gCtx.font = `${line.size}px ${line.font}`;
     gCtx.textAlign = line.align;
     gCtx.textBaseline = 'middle';
     gCtx.strokeStyle = line.strokeColor;
@@ -86,6 +81,27 @@ function drawText() {
     makeBorder();
   });
 }
+
+function makeBorderSticker() {
+  const currentSticker = getCurrSticker();
+  if (!currentSticker) return;
+  const padding = 20;
+  const width = 70;
+  const height = 70;
+
+  gCtx.beginPath();
+  gCtx.rect(
+    currentSticker.posX - width / 2 - padding,
+    currentSticker.posY - height / 2 - padding,
+    width + padding * 2,
+    currentSticker.size + padding * 2
+  );
+  gCtx.lineWidth = 2;
+  gCtx.strokeStyle = 'White';
+  gCtx.stroke();
+  gCtx.closePath();
+}
+
 function makeBorder() {
   const currentLine = getCurrLine();
   if (!currentLine) return;
@@ -106,43 +122,20 @@ function makeBorder() {
   gCtx.closePath();
 }
 function checkOnSticker(pos) {
-  const meme = getMeme();
   const width = 70;
   const height = 70;
-  const currentStickers = meme.stickers;
-  for (let i = 0; i < currentStickers.length; i++) {
-    const sticker = currentStickers[i];
-    if (
-      pos.x >= sticker.posX - width / 2 &&
-      pos.x <= sticker.posX + width / 2 + height &&
-      pos.y >= sticker.posY - width / 2 &&
-      pos.y <= sticker.posY + width / 2 + height
-    ) {
-      gisStickerDrag = true;
-      return true;
-    }
+  const sticker = getCurrSticker();
+  if (
+    pos.x >= sticker.posX - width / 2 &&
+    pos.x <= sticker.posX + width / 2 + height &&
+    pos.y >= sticker.posY - width / 2 &&
+    pos.y <= sticker.posY + width / 2 + height
+  ) {
+    return true;
   }
+
   return false;
 }
-// function removeBorder() {
-//   const currentLine = getCurrLine();
-//   if (!currentLine) return;
-//   const padding = 20;
-//   const width = gCtx.measureText(currentLine.txt).width;
-//   const height = parseInt(currentLine.size);
-
-//   gCtx.beginPath();
-//   gCtx.rect(
-//     currentLine.posX - width / 2 - padding,
-//     currentLine.posY - height / 2 - padding,
-//     width + padding * 2,
-//     currentLine.size + padding * 2
-//   );
-//   gCtx.lineWidth = 0;
-//   gCtx.strokeStyle = '';
-//   gCtx.stroke();
-//   gCtx.closePath();
-// }
 
 function addText() {
   addLine('Example Text');
@@ -155,6 +148,7 @@ function drawSticker() {
     img.src = image.url;
     img.onload = () => {
       gCtx.drawImage(img, image.posX, image.posY, image.width, image.height);
+      makeBorder();
     };
   });
 }
@@ -177,15 +171,10 @@ function drawCanvas() {
   const url = gUploadedImg ? gUploadedImg : selectedImg.url;
 
   img.src = url;
-  // if (!renderImg()) {
-  //   img.src = selectedImg.url;
-  // } else {
-  //   img.src = renderImg();
-  // }
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
     drawSticker();
-    drawText();
-    gCtx.save();
+
+    drawLine();
   };
 }

@@ -84,11 +84,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-/* .frequent-container {
-  display: flex;
 
-  align-items: top;
-} */
 .list-frequent {
   display: flex;
   list-style-type: none;
